@@ -1,0 +1,8 @@
+{%- for i in my_vlans %}
+set vlans {{ i.vlan_name }} vlan-id {{ i.vlan_id }}
+{%- if i.vlan_name  == "MGMT"  %}
+set vlans {{ i.vlan_name }} l3-interface irb.{{ i.vlan_id }}
+set interfaces irb unit {{ i.vlan_id }} description "Internal Management"
+set interfaces irb unit {{ i.vlan_id }} family inet address {{ src_ip }}/24
+{%- endif %}
+{%- endfor %}
